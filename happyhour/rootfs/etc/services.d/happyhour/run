@@ -1,0 +1,13 @@
+#!/usr/bin/with-contenv bashio
+# ==============================================================================
+# Filii Lamberti Home Assistant Add-ons: HappyHour
+# Starts the HappyHour status page
+# ==============================================================================
+
+# Set the current working dir to /opt
+cd /opt/happyhour || bashio::exit.nok "Could not change directory to HappyHour"
+
+bashio::log.info "Starting HappyHour..."
+
+# And finally start the HappyHour
+exec node app.js
