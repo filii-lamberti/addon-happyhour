@@ -59,23 +59,23 @@ const happy = {
 
 function getData() {
   axios.get(happy.url)
-  .then(response => {
-    const html = response.data;
-    const $ = cheerio.load(html)
-    let newState = $('#accordion > h1').text().trim();
-    if (newState !== happy.state) {
-      happy.since = moment();
-      happy.state = newState;
-    }
+    .then(response => {
+      const html = response.data;
+      const $ = cheerio.load(html)
+      let newState = $('#accordion > h1').text().trim();
+      if (newState !== happy.state) {
+        happy.since = moment();
+        happy.state = newState;
+      }
 
-    // after scrape
-    io.emit('update', happy);
+      // after scrape
+      io.emit('update', happy);
 
-    console.log(happy);
-  })
-  .catch(error => {
-    console.log(error);
-  });
+      console.log(happy);
+    })
+    .catch(error => {
+      console.log(error);
+    });
 }
 
 setInterval(getData, 10000);

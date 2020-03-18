@@ -18,8 +18,7 @@
   "ports": {
     "3000/tcp": 8214
   },
-  "options": {
-  },
+  "options": {},
   "schema": {
     "logging": "bool?",
     "debugging": "bool?"
