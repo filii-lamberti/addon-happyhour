@@ -6,7 +6,10 @@ FROM ${BUILD_FROM}
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 # Copy root filesystem
-COPY rootfs /
+COPY rootfs/etc /etc/
+COPY rootfs/opt/happyhour/package-lock.json \
+    rootfs/opt/happyhour/package.json \
+    /opt/happyhour/
 
 # Setup base
 # hadolint ignore=DL3003
@@ -28,6 +31,9 @@ RUN \
     && npm cache clear --force \
     \
     && apk del --no-cache --purge .build-dependencies
+
+COPY rootfs/opt/happyhour/public /opt/happyhour/public/
+COPY rootfs/opt/happyhour/app.js /opt/happyhour/
 
 # Build arugments
 ARG BUILD_ARCH
