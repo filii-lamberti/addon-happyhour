@@ -7,8 +7,9 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 # Copy root filesystem
 COPY rootfs/etc /etc/
-COPY rootfs/opt/happyhour/package-lock.json \
+COPY \
     rootfs/opt/happyhour/package.json \
+    rootfs/opt/happyhour/yarn.lock \
     /opt/happyhour/
 
 # Setup base
@@ -23,11 +24,17 @@ RUN \
     \
     && cd /opt/happyhour \
     \
-    && npm install \
-        --no-optional \
-        --only=production \
+    && yarn global add modclean \
+    && yarn --production \
     \
-    && npm cache clear --force \
+    && modclean \
+        --path /opt/happyhour \
+        --no-progress \
+        --keep-empty \
+        --run \
+    \
+    && yarn global remove modclean \
+    && yarn cache clean \
     \
     && apk del --no-cache --purge .build-dependencies
 
