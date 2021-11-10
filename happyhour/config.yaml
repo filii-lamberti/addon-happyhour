@@ -14,8 +14,7 @@ arch:
 hassio_api: true
 homeassistant_api: true
 ports:
-  3000/tcp: 8214
-options:
+  3000/tcp: 8009 # happyhour
 schema:
   logging: bool?
   debugging: bool?
